@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Home Page{% endblock %}
+
+{% block content %}
+<h1>Home Page</h1>
+{% if user.is_authenticated %}
+
+    <p><a href="/locksmith-search">Search Locksmith</a></p>
+
+    {% else %}
+        <p>You neeed to log in to view locksmiths!</p>
+    {% endif %}
+{% endblock %}

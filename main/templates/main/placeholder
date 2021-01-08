@@ -1,0 +1,71 @@
+// models.py
+
+class Ciudad(models.Model):
+    nombre = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.nombre
+
+class Cerrajero(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Un cerrajero tiene una ciudad asignada... en una ciudad pueden vivir muchos cerrajeros
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.DO_NOTHING)
+
+
+// forms.py
+
+from main.models import Cerrajero, Ciudad
+
+class LookForLocksmith(forms.Form):
+    serviceType = forms.ChoiceField(choices=serviceType)
+    serviceObject = forms.ChoiceField(choices=serviceObject, )
+    serviceUrgency = forms.ChoiceField(choices=serviceUrgency, )
+    serviceIntent = forms.ChoiceField(choices=serviceIntent, )
+    cities = forms.ModelChoiceField(queryset=Ciudad.objects.all(), to_field_name='id', required=False)
+
+
+// views.py
+
+class l_list(ListView, LoginRequiredMixin):
+    template_name = "main/locksmith-list.html"
+    """
+        Metodo que devuelve y filtra todos los Usuarios 
+        que son cajeros ordenados por el promedio de rating
+    """
+
+    def get_queryset(self):
+        # Recogo la lista de filtros que vienen por la URL
+        serviceType, serviceObject, serviceUrgency, serviceIntent, city = self.request.GET.values()
+        d = {}
+        # Si viene el ID de la ciudad agrego ese campo a los filtros
+        if city:
+            d = {"cerrajero__ciudad__pk": city}
+        # Consulta a usuarios donde filtra sus campos basados en los filtros enviados por GET
+        # Hace Join con la tabla cerrajeros, con rating y con ciudad
+        objects_filter = User.objects.filter(cerrajero__serviceType__contains=serviceType,
+                                             cerrajero__serviceObject__contains=serviceObject,
+                                             cerrajero__serviceIntent__contains=serviceIntent,
+                                             cerrajero__serviceUrgency__contains=serviceUrgency,
+                                             **d).annotate(
+            avg=Avg('rating__rate', output_field=models.DecimalField())).order_by('-avg')
+        # Devuelve los registros filtrados
+        return objects_filter
+
+
+// admin.py
+
+from django.contrib import admin
+from .models import Cerrajero, Rating, Ciudad
+
+# Register your models here.
+
+admin.site.register(Cerrajero)
+admin.site.register(Rating)
+admin.site.register(Ciudad)
+
+// locksmith-data.html
+
+        <li>{{ object.user.first_name }}</li>
+        <li>{{ object.user.last_name }}</li>
+        <li>{{ object.ciudad.nombre }}</li>
+        <li>{{ object.phone }}</li>

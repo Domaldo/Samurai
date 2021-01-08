@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    <title>Multiple Models</title>
+</head>
+<body>
+    <center>
+        <h1>How to Display</h1>
+        <h2>Django Test 1</h2>
+        <table border="1">
+            <tr>
+                <th>ID Cerrajero</th>
+                <th>Boolean 1</th>
+                <th>Boolean 2</th>
+                <th>Boolean 3</th>
+                <th>Boolean 4</th>
+                <th>Boolean 5</th>
+                <th>Boolean 6</th>
+                <th>Boolean 7</th>
+                <th>Boolean 8</th>
+                <th>Boolean 9</th>
+                <th>Boolean 10</th>
+                <th>Boolean 11</th>
+                <th>Boolean 12</th>
+                <th>Boolean 13</th>
+            </tr>
+            {% for cdata in cerrajero %}
+            {% for rdata in rating %}
+            {% if rdata.cerrajero == cdata.id %}
+            
+            <tr>
+                <td>{{cdata.id}}</td>
+                <td>{{cdata.serviceTypeChange}}</td>
+                <td>{{cdata.serviceTypeCopy}}</td>
+                <td>{{cdata.serviceTypeChip}}</td>
+                <td>{{cdata.serviceObjectHome}}</td>
+                <td>{{cdata.serviceObjectVehicle}}</td>
+                <td>{{cdata.serviceObjectTrunk}}</td>
+                <td>{{cdata.serviceUrgencyNow}}</td>
+                <td>{{cdata.serviceUrgencyDay}}</td>
+                <td>{{cdata.serviceUrgencyMonth}}</td>
+                <td>{{cdata.serviceUrgencyLatest}}</td>
+                <td>{{cdata.serviceIntentCompare}}</td>
+                <td>{{cdata.serviceIntentNegociate}}</td>
+                <td>{{cdata.serviceIntentDecide}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </table>
+        <h2>Django Test 2</h2>
+        <table border="1">
+            <tr>
+                <th>ID Rating</th>
+                <th>ID Cerrajero</th>
+            </tr>
+            {% for rdata in rating %}
+            <tr>
+                <td>{{rdata.id}}</td>
+                <td>{{rdata.cerrajero}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

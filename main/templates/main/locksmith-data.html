@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Locksmith Information{% endblock %}
+
+{% block content %}
+    <h1>Datos de Cerrajero</h1>
+    {% if user.is_authenticated %}
+    <ul>
+        <li>{{ object.user.first_name }}</li>
+        <li>{{ object.user.last_name }}</li>
+        <!-- <li>{{ object.ciudad.nombre }}</li> -->
+        <li>{{ object.phone }}</li>
+        <li>
+            <form action="/rating/" method="get">
+
+                <select name="rate">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <input type="hidden" name="pk" value="{{ object.user.pk }}">
+                <input type="submit" value="Votar">
+
+            </form>
+        </li>
+    </ul>
+    {% else %}
+    <p>You neeed to log in to view locksmiths!</p>
+    {% endif %}
+{% endblock %}
