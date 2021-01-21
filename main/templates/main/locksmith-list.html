@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Locksmith List{% endblock %}
+<style>
+    .table,
+    th,
+    td {
+        font-size: 15px;
+    }
+</style>
+{% block content %}
+<h1>Los Mejores Cerrajeros</h1>
+{% if user.is_authenticated %}
+<div class="container-fluid">
+    <div class="row center-xs">
+        <div class="col-sx-12">
+            <div class="tablespacing">
+                <table class="locksmithlist" border="1">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ciudad</th>
+                        <th>Reseña</th>
+                        <th>Opciones</th>
+                    </tr>
+                    {% for user in object_list %}
+                    <tr>
+                        <th>{{ user.user.first_name }} {{ user.user.last_name }}</th>
+                        <th>{{ user.user.cerrajero.city.name }}</th>
+                        <th>{{ user.avg|floatformat:1|default:0 }}/5</th>
+                        <th><button onclick="location.href='{% url 'locksmith-data' user.pk %}'"
+                                type="button">Visualizar</button></th>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% else %}
+<p>You neeed to log in to view locksmiths!</p>
+{% endif %}
+{% endblock %}

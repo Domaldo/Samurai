@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Locksmith Search{% endblock %}
+
+{% block content %}
+<h1>Buscar Servicios de Cerrajero</h1>
+{% if user.is_authenticated %}
+<div class="container-fluid">
+    <div class="row xs">
+        <div class="col-sx-3">
+            <form class="locksmithsearch" action="/locksmith-list/" method="get">
+                {{ form.as_p }}
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+<p>You neeed to log in to view locksmiths!</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Home Page{% endblock %}
+
+{% block content %}
+<style>
+
+</style>
+<h1>Bienvenido a Hire a Samurai!</h1>
+<div class="container">
+    <div class="row xs">
+        <div class="col-xs">
+            {% load static %}
+            <a><img src="{% static 'main/locksmith_dude.png' %}" alt="My dude"></a>
+        </div>
+        <div class="col-xs">
+            <h2 class="subtitulo">Lorem ipsum dolor sit amet</h2>
+            <p class="parrafo">
+                Consectetur adipiscing elit. Cras viverra commodo venenatis. Etiam diam orci, consequat eu mi nec, 
+                vestibulum posuere erat. Vestibulum sit amet dapibus arcu. Ut tincidunt, diam a porta molestie, 
+                orci libero interdum turpis, quis pretium mi dui nec enim. Donec a nibh tempus, sagittis magna sed, 
+                hendrerit ipsum. Vivamus pretium non quam in laoreet.
+            </p>
+            <p class="parrafo">
+                Praesent quis vestibulum justo. Nulla faucibus posuere felis, 
+                et lobortis massa imperdiet sit amet.
+            </p>
+            <p class="parrafo">         
+               Integer ac lacus id velit rhoncus iaculis. Proin ultricies nisi eu congue egestas. 
+                Morbi tempor faucibus diam ut luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                Maecenas vitae odio tempus dui ornare scelerisque.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

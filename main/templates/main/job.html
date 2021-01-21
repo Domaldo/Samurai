@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% block title %}: Locksmith Information{% endblock %}
+
+{% block content %}
+<h1>Contrato con el Cerrajero</h1>
+    {% if user.is_authenticated %}
+    <div class="container-fluid">
+        <div class="row xs">
+            <div class="col-sx-3">
+                <form class="locksmithsearch" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Contratar</button>
+                </form>
+                {% else %}
+                <p>You neeed to log in to view jobs!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

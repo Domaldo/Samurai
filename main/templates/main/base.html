@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head class="header-base">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+    <link rel="stylesheet" href="/static/main/base.css?{% now " U" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"
+        type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hire a Samurai{% block title %}{% endblock %}</title>
+</head>
+<header>
+    {% load static %}
+    <a class="topbar" href="/"><img class="logo" src="{% static 'main/Hire_a_Samurai_Logo.png' %}" alt="My image"></a>
+    <nav>
+        <ul class="nav__links">
+            <li class="topbar" ><a class="topbar" href="/">Inicio</a></li class="topbar" >
+            {% if user.is_authenticated %}
+            <li class="topbar" ><a class="topbar" href="/locksmith-search">Buscar Cerrajeros</a></li class="topbar" >
+            {% if user.cerrajero %}
+            <li class="topbar" ><a class="topbar" href="{% url 'contract_list' %}">Trabajos de Cerrajero</a></li class="topbar" >
+            {% else %}
+            <li class="topbar" ><a class="topbar" href="/locksmith-create">Registrarse como Cerrajero</a></li class="topbar" >
+            {% endif %}
+            <li class="topbar" >
+                <a class="topbar" href="/logout">Logout</a>
+                {% else %}
+                <a class="topbar" href="/login">Login</a>
+                {% endif %}
+            </li class="topbar" >
+        </ul>
+    </nav>
+</header>
+
+<body>
+    <div class="container-fluid" id="content" name="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<footer>
+    <div class="container">
+        <div class="logfoot">
+            <div class="row center-xs">
+                <div class="col-xs">
+                    <p style="text-align:center;">Hire A Samurai. La mejor opción</p>
+                    <p style="text-align:center;">&#169; 2021 Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

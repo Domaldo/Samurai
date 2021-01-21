@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block title %}: Locksmith List{% endblock %}
+
+{% block content %}
+    <h1>Lista de Trabajos:</h1>
+    {% if user.is_authenticated %}
+    <div class="container-fluid">
+        <div class="row xs">
+            <div class="col-sx-12">
+                <ul class="locksmithsearch" >
+                    {% for job in object_list %}
+                    <li>Email del Cliente: {{ job.user.email }}</li>
+                    <li>Tipo de Servicio: {{ job.service_type }}</li>
+                    <li>Objeto que requiere el Servicio: {{ job.service_object }}</li>
+                    <li>Tiene Repuesto del Servicio: {{ job.take_piece }}</li>
+                    <li>Modelo del Automovil: {{ job.car_model }}</li>
+                    <li>Año del Automovil: {{ job.car_year }}</li>
+                    <li>Fecha del Trabajo: {{ job.date }}</li>
+                    <li>Estado del Trabajo: {{ job.status }}</li>
+                    <li>Cambiar
+                        Estado
+                        <button onclick="location.href='{% url 'contract_status' job.pk 'Accepted' %}'" type="button">Aceptar</button>
+                        <button onclick="location.href='{% url 'contract_status' job.pk 'Canceled' %}'" type="button">Cancelar</button>
+                    </li>
+                    <p>------------------------------------------------------------</p>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>You neeed to log in to view jobs!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
